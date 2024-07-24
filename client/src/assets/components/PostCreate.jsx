@@ -18,15 +18,16 @@ const PostCreate = () => {
     }
 
   return (
-    <div>
+    <div className='flex justify-center gap-2 bg-slate-600 p-5'>
       <form onSubmit={onSubmit}>
-        <div>
-            <label htmlFor="">Title</label>
+        <div className='flex m-2 '>
+            <label className='font-sans  text-white' htmlFor="">Title</label>
             <input
+        
             onChange={e => setTitle(e.target.value)}
-            type="text" name="" id="" className='form-control' />
+            type="text" name="" id="" className='form-control ms-1 border border-black ' />
         </div>
-        <button className='btn'>Submit</button>
+        <button className='bg-blue-500 p-2 rounded text-white hover:bg-slate-500  '>Submit</button>
       </form>
     </div>
   )
