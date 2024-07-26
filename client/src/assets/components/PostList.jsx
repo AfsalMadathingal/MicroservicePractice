@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import CommentCreation from "./CommentCreation";
+import Coments from "./Coments";
 
 const PostList = () => {
   const [posts, setPosts] = useState({});
@@ -17,20 +19,27 @@ const PostList = () => {
   const rendered = Object.values(posts).map((post) => {
     return (
       <>
-        <div className="bg-blue-700">
+        <div key={post.id} className="bg-slate-400  border p-5  w-[30%] m-1">
           <div>
             <h3>{post.title}</h3>
+            <CommentCreation postId={post.id}/>
+            <h1>All comments</h1>
+            <Coments postId={post.id}/>
           </div>
+          
         </div>
       </>
     );
   });
 
   return (
-    <div>
-      <h1 className="bg-red-400 font-bold text-lg">Posts</h1>
+    <>
+    <h1 className="bg-red-400 font-bold text-lg">Posts</h1>
+
       {rendered}
-    </div>
+      
+
+    </>
   );
 };
 
