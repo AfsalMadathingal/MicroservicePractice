@@ -4,10 +4,10 @@ import CommentCreation from "./CommentCreation";
 import Coments from "./Coments";
 
 const PostList = () => {
-  const [posts, setPosts] = useState({});
+  const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
-    const res = await axios.get("http://localhost:4002/posts");
+    const res = await axios.get("http://localhost:4000/posts");
     console.log(res.data);
     setPosts(res.data);
   };
@@ -16,17 +16,17 @@ const PostList = () => {
     fetchPosts();
   }, []);
 
-  const rendered = Object.values(posts).map((post) => {
+  const rendered = posts?.map((post,idx) => {
     return (
 
-        <div key={post.id} className="bg-slate-400  border p-5  w-[30%] m-1">
+        <div key={idx} className="bg-slate-400  border p-5  w-[30%] m-1">
  
             <h3>{post.title}</h3>
            
             <h1>All comments</h1>
-            <Coments comments={post.comments}/>
+            {/* <Coments comments={post.comments}/>
 
-            <CommentCreation postId={post.id}/>
+            <CommentCreation postId={post.id}/> */}
       
           
         </div>
@@ -38,7 +38,7 @@ const PostList = () => {
     <>
     <h1 className="bg-red-400 font-bold text-lg">Posts</h1>
 
-      {rendered}
+      {rendered? rendered : "Loading..."}
       
 
     </>
