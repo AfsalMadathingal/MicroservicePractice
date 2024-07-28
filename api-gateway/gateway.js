@@ -21,8 +21,8 @@ app.use("/", (req, res,next) => {
 });
 
 const proxyTargets = {
-  post: "http://localhost:4000",
-  comment: "http://localhost:4001",
+  post: "http://microservice-posts-1:4000",
+  comment: "http://microservice-comments-1:4001",
 };
 
 app.use(

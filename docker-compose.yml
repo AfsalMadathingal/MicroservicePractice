@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build: 
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000" # Adjust the port as needed
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_URL: amqp://rabbitmq
+
+  comments:
+    build: 
+      context: ./comments
+      dockerfile: Dockerfile
+    ports:
+      - "4001:4001" # Adjust the port as needed
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_URL: amqp://rabbitmq
+
+  posts:
+    build: 
+      context: ./posts
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000" # Adjust the port as needed
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBITMQ_URL: amqp://rabbitmq
+
+  rabbitmq:
+    image: "rabbitmq:latest"
+    container_name: rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    # environment:
+    #   RABBITMQ_DEFAULT_USER: user
+    #   RABBITMQ_DEFAULT_PASS: password
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+
+networks:
+  default:
+    name: microservice_network
