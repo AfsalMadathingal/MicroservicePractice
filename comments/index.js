@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { connectDB } = require('./config/db');
 const { connectRabbitMQ } = require('./config/rabbitmq');
-const { listenForNewPosts, createComment } = require('./controller/commentController');
+const { listenForNewPosts, createComment, getComment } = require('./controller/commentController');
 const app = express();
 
 
@@ -15,15 +15,22 @@ app.use(bodyParser.json());
 
 
 
-app.get('/posts/:id/comments', (req, res) => {
+app.get('/posts/:id/comments', async (req, res) => {
 
-
+console.log('====================================');
+console.log(req.params.id);
+console.log('====================================');
+  const {id } = req.params
+  const data = await getComment(id)
+  res.send(data)
 
 });
 
 app.post('/posts/:id/comments', async (req, res) => {
-  
-  await createComment(req.body)
+  const {id } = req.params
+  req.body.postId = id
+  const data  = await createComment(req.body)
+  res.status(201).send(data)
 
 });
 

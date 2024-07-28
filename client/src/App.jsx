@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-    <h1 className='text-lg font-bold'>Create Post </h1>
+    <h1 className='text-lg font-bold'>Microservice Sample Project </h1>
      <PostCreate/>
      <PostList/>
     </>

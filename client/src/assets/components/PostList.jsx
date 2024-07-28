@@ -16,31 +16,27 @@ const PostList = () => {
     fetchPosts();
   }, []);
 
-  const rendered = posts?.map((post,idx) => {
+  const rendered = posts?.map((post, idx) => {
     return (
+      <div key={idx} className="bg-slate-400  border p-5 w-1/3 m-1">
+        <h3>{post.title}</h3>
+        <p>{post.content}</p>
+        <h1>All comments</h1>
+        <Coments postId={post._id} />
 
-        <div key={idx} className="bg-slate-400  border p-5  w-[30%] m-1">
- 
-            <h3>{post.title}</h3>
-           
-            <h1>All comments</h1>
-            {/* <Coments comments={post.comments}/>
-
-            <CommentCreation postId={post.id}/> */}
-      
-          
-        </div>
-
+        <CommentCreation postId={post._id} />
+      </div>
     );
   });
 
   return (
     <>
-    <h1 className="bg-red-400 font-bold text-lg">Posts</h1>
+     <h1 className="bg-red-400 font-bold text-lg">Posts</h1>
+      <div className="flex">
+       
 
-      {rendered? rendered : "Loading..."}
-      
-
+        {rendered ? rendered : "Loading..."}
+      </div>
     </>
   );
 };

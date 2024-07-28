@@ -8,7 +8,7 @@ const CommentCreation = ({postId}) => {
     const onSubmit = async (e)=>{
         e.preventDefault()
 
-        await axios.post(`http://localhost:4001/posts/${postId}/comments`,{
+        await axios.post(`http://localhost:8000/api/comments/posts/${postId}/comments`,{
             content
         })
 
@@ -17,9 +17,9 @@ const CommentCreation = ({postId}) => {
     }
 
   return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center '>
       <form onSubmit={onSubmit} >
-        <div>
+        <div className='flex flex-col m-2 '>
             <label htmlFor="">New Comment</label>
             <input value={content} onChange={e=> setContent(e.target.value)} type="text" />
         </div>

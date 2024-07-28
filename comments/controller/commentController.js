@@ -1,6 +1,7 @@
 const Comment = require('../model/commentModel');
 const PostReference = require('../model/postModel');
 const { getChannel } = require('../config/rabbitmq');
+const { default: mongoose } = require('mongoose');
 
 async function listenForNewPosts() {
     const channel = getChannel();
@@ -19,7 +20,9 @@ async function listenForNewPosts() {
   }
 
 async function createComment(commentData) {
+
   const postReference = await PostReference.findById(commentData.postId);
+
   if (!postReference) {
     throw new Error('Post not found or has been deleted');
   }
@@ -28,4 +31,13 @@ async function createComment(commentData) {
   return comment;
 }
 
-module.exports = { listenForNewPosts, createComment };
+
+async function getComment(id) {
+  const comments = await Comment.find({postId: id});
+  console.log('====================================');
+  console.log(comments);
+  console.log('====================================');
+  return comments;
+}
+
+module.exports = { listenForNewPosts, createComment , getComment };
